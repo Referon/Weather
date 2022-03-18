@@ -1,11 +1,296 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/night_bg"
+        android:backgroundTintMode="multiply"
         tools:context=".MainActivity">
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:constraint_referenced_ids="feeling_ic,feeling_int,feeling_text, wind_ic,wind_int,wind_text,humidity_ic,humidity_int,humidity_text" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:constraint_referenced_ids="description,temp,time,name_city, group_description" />
+
+
+        <ImageButton
+            android:id="@+id/ic_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/search_rectangle"
+            android:padding="8dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/edit_text"
+
+            app:layout_constraintTop_toTopOf="@id/edit_text" />
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="@dimen/common_spacing"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/edit_text_rectangle"
+            android:gravity="top"
+            android:hint="Название города"
+            android:paddingVertical="16dp"
+            android:paddingStart="@dimen/common_spacing"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/name_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:text="Hello World!"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_city"
+            tools:text="Time" />
+
+        <TextView
+            android:id="@+id/temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temp"
+            android:textColor="@color/white"
+            android:textSize="70dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/time" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@id/image"
+            app:layout_constraintStart_toStartOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/image"
+            tools:text="облачно" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/temp"
+            tools:ignore="MissingConstraints" />
+
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/error_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/error_button"
+            android:paddingHorizontal="@dimen/common_spacing"
+            android:paddingVertical="@dimen/common_spacing"
+            android:text="Попробовать снова"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_spacing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            tools:ignore="MissingConstraints"
+            tools:listitem="@layout/card_layaout" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:background="@drawable/descriptions_view"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/humidity_int"
+            app:layout_constraintEnd_toEndOf="@id/humidity_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/humidity_text" />
+
+        <TextView
+            android:id="@+id/humidity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:padding="@dimen/common_spacing"
+            android:text="Влажность"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/humidity_ic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/humidity"
+            app:layout_constraintEnd_toEndOf="@id/humidity_text"
+            app:layout_constraintStart_toStartOf="@id/humidity_text"
+            app:layout_constraintTop_toBottomOf="@id/humidity_text"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/humidity_int"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="60%"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/humidity_ic"
+            app:layout_constraintStart_toStartOf="@id/humidity_ic"
+            app:layout_constraintTop_toBottomOf="@id/humidity_ic"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/descriptions_view"
+            android:padding="@dimen/common_spacing"
+            app:layout_constraintBottom_toBottomOf="@id/humidity_int"
+            app:layout_constraintEnd_toEndOf="@id/wind_text"
+            app:layout_constraintStart_toStartOf="@id/wind_text"
+            app:layout_constraintTop_toTopOf="@id/wind_text" />
+
+        <TextView
+            android:id="@+id/wind_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:padding="@dimen/common_spacing"
+            android:text="Скорость ветра"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/feeling_text"
+            app:layout_constraintStart_toEndOf="@id/humidity_text"
+            app:layout_constraintTop_toBottomOf="@id/list"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/wind_ic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/wind"
+            app:layout_constraintEnd_toEndOf="@id/wind_text"
+            app:layout_constraintStart_toStartOf="@id/wind_text"
+            app:layout_constraintTop_toBottomOf="@id/wind_text"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/wind_int"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60%"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/wind_ic"
+            app:layout_constraintStart_toStartOf="@id/wind_ic"
+            app:layout_constraintTop_toBottomOf="@id/wind_ic"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/common_spacing"
+            android:background="@drawable/descriptions_view"
+            android:padding="@dimen/common_spacing"
+            app:layout_constraintBottom_toBottomOf="@id/feeling_int"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/feeling_text"
+            app:layout_constraintTop_toTopOf="@id/feeling_text" />
+
+        <TextView
+            android:id="@+id/feeling_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:padding="@dimen/common_spacing"
+            android:text="Ощущение"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/wind_text"
+            app:layout_constraintTop_toBottomOf="@id/list"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/feeling_ic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/feels_like"
+            app:layout_constraintBottom_toTopOf="@id/feeling_int"
+            app:layout_constraintEnd_toEndOf="@id/feeling_text"
+            app:layout_constraintStart_toStartOf="@id/feeling_text"
+            app:layout_constraintTop_toBottomOf="@id/feeling_text"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/feeling_int"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="60%"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/feeling_ic"
+            app:layout_constraintStart_toStartOf="@id/feeling_ic"
+            app:layout_constraintTop_toBottomOf="@id/feeling_ic"
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
