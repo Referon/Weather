@@ -8,9 +8,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/night_bg"
-        android:backgroundTintMode="multiply"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="10dp"
+        android:id="@+id/constraint"
         tools:context=".MainActivity">
 
         <androidx.constraintlayout.widget.Group
@@ -23,7 +25,7 @@
             android:id="@+id/group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:constraint_referenced_ids="description,temp,time,name_city, group_description" />
+            app:constraint_referenced_ids="description,temp,time,name_city, group_description, ic_search, edit_text" />
 
 
         <ImageButton
@@ -33,7 +35,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/search_rectangle"
-            android:padding="8dp"
+            android:padding="6dp"
             android:src="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="@id/edit_text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +53,7 @@
             android:background="@drawable/edit_text_rectangle"
             android:gravity="top"
             android:hint="Название города"
-            android:paddingVertical="16dp"
+            android:paddingVertical="12dp"
             android:paddingStart="@dimen/common_spacing"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,6 +69,8 @@
             android:text="Hello World!"
             android:textColor="@color/white"
             android:textSize="25dp"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -77,6 +81,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="10dp"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name_city"
@@ -89,6 +95,8 @@
             android:text="Temp"
             android:textColor="@color/white"
             android:textSize="70dp"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/time" />
@@ -99,6 +107,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="20dp"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             app:layout_constraintEnd_toEndOf="@id/image"
             app:layout_constraintStart_toStartOf="@id/image"
             app:layout_constraintTop_toBottomOf="@id/image"
@@ -111,6 +121,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/temp"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="9"
             tools:ignore="MissingConstraints" />
 
 
@@ -139,6 +151,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:id="@+id/bg_view_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/descriptions_view"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/list" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
@@ -151,13 +174,15 @@
             tools:listitem="@layout/card_layaout" />
 
         <View
+            android:id="@+id/bg_view_addition"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginEnd="@dimen/common_spacing"
             android:background="@drawable/descriptions_view"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="@id/humidity_int"
-            app:layout_constraintEnd_toEndOf="@id/humidity_text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/humidity_text" />
 
@@ -168,9 +193,11 @@
             android:layout_marginStart="10dp"
             android:padding="@dimen/common_spacing"
             android:text="Влажность"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/list"
             tools:ignore="MissingConstraints" />
@@ -191,21 +218,13 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:text="60%"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/humidity_ic"
             app:layout_constraintStart_toStartOf="@id/humidity_ic"
             app:layout_constraintTop_toBottomOf="@id/humidity_ic"
             tools:ignore="MissingConstraints" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/descriptions_view"
-            android:padding="@dimen/common_spacing"
-            app:layout_constraintBottom_toBottomOf="@id/humidity_int"
-            app:layout_constraintEnd_toEndOf="@id/wind_text"
-            app:layout_constraintStart_toStartOf="@id/wind_text"
-            app:layout_constraintTop_toTopOf="@id/wind_text" />
 
         <TextView
             android:id="@+id/wind_text"
@@ -214,9 +233,11 @@
             android:layout_marginStart="@dimen/common_spacing"
             android:padding="@dimen/common_spacing"
             android:text="Скорость ветра"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toStartOf="@id/feeling_text"
             app:layout_constraintStart_toEndOf="@id/humidity_text"
             app:layout_constraintTop_toBottomOf="@id/list"
@@ -237,22 +258,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="60%"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/wind_ic"
             app:layout_constraintStart_toStartOf="@id/wind_ic"
             app:layout_constraintTop_toBottomOf="@id/wind_ic"
             tools:ignore="MissingConstraints" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/common_spacing"
-            android:background="@drawable/descriptions_view"
-            android:padding="@dimen/common_spacing"
-            app:layout_constraintBottom_toBottomOf="@id/feeling_int"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/feeling_text"
-            app:layout_constraintTop_toTopOf="@id/feeling_text" />
 
         <TextView
             android:id="@+id/feeling_text"
@@ -261,9 +273,11 @@
             android:layout_marginStart="@dimen/common_spacing"
             android:padding="@dimen/common_spacing"
             android:text="Ощущение"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/wind_text"
             app:layout_constraintTop_toBottomOf="@id/list"
@@ -286,6 +300,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:text="60%"
+            android:shadowColor="#9F000000"
+            android:shadowRadius="5"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/feeling_ic"
             app:layout_constraintStart_toStartOf="@id/feeling_ic"
