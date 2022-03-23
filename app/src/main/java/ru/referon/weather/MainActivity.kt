@@ -79,19 +79,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.icSearch.setOnClickListener {
-            val myCity = binding.editText.text.toString()
+            val myCity = binding.editText.text.toString().trim()
             SET.putString("cityName", myCity)
             SET.apply()
             viewModel.loadWeather(myCity)
         }
 
         binding.errorButton.setOnClickListener {
-            val myCity = binding.editText.text.toString()
+            val myCity = binding.editText.text.toString().trim()
             viewModel.loadWeather(myCity)
         }
 
         binding.refresh.setOnRefreshListener {
-            viewModel.loadWeather(binding.nameCity.text.toString())
+            viewModel.loadWeather(binding.nameCity.text.toString().trim())
             binding.refresh.setRefreshing(false)
         }
 
